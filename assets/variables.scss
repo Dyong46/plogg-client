@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter");
+
+$body-font-family: "Inter";
+$heading-font-family:"Inter";
+$title-font: sans-serif;
+
+// $headings: (
+// 	"h1": (
+// 		"size": 36px,
+// 		"weight": 700,
+// 		"line-height": 44px,
+// 		"letter-spacing": -0.055em
+// 	),
+// 	"h2": (
+// 		"size": 20px,
+// 		"weight": 700,
+// 		"line-height": 24px
+// 	),
+// 	"h3": (
+// 		"size": 20px,
+// 		"weight": 300,
+// 		"line-height": 24px
+// 	),
+// 	"h4": (
+// 		"weight": 700,
+// 		"size": 14px,
+// 		"line-height": 17px
+// 	)
+// );
+
+$material-light:(
+	"text":(
+		'disabled':  none
+	)
+);

@@ -1,0 +1,3 @@
+[submodule "vuelib"]
+	path = vuelib
+	url = git://github.com/plogg-rely/vuelib.git

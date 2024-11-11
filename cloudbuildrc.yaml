@@ -1,0 +1,34 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    git config -f .gitmodules submodule.vuelib.url https://source.developers.google.com/p/relyrc/r/github_plogg-rely_vuelib
+    git submodule init
+    git submodule update
+- name: node:18
+  entrypoint: npm
+  args: ['install', '-f']
+- name: node:18
+  entrypoint: npm
+  args: ['run', 'build:rc']
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy", "--verbosity=debug", "apprc.yaml"]
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    versions=$(gcloud app versions list \
+      --service avalability-client \
+      --sort-by '~VERSION.ID' \
+      --format 'value(VERSION.ID)' | sed 1,5d)
+    for version in $versions; do
+    gcloud app versions delete "$version" \
+      --service avalability-client \
+      --quiet
+    done
+timeout: "1600s"
+options:
+  machineType: 'N1_HIGHCPU_8'

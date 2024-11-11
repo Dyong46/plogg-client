@@ -1,0 +1,28 @@
+runtime: nodejs18
+service: avalability-client
+entrypoint: npm run rc
+handlers:
+  - url: /_nuxt
+    static_dir: .nuxt/dist/client
+    secure: always
+    http_headers:
+      Strict-Transport-Security: 'max-age=63072000; includeSubDomains; preload'
+  - url: /(.*\.(gif|png|jpg|ico|txt))$
+    static_files: static/\1
+    upload: static/.*\.(gif|png|jpg|ico|txt)$
+    secure: always
+    http_headers:
+      Strict-Transport-Security: 'max-age=63072000; includeSubDomains; preload'
+  - url: /.*
+    script: auto
+    secure: always
+env_variables:
+  HOST: '0.0.0.0'
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1
+  max_concurrent_requests: 80
+  target_throughput_utilization: 0.95
+  max_pending_latency: 15s
+inbound_services:
+- warmup
